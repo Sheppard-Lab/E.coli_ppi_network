@@ -1,7 +1,7 @@
 # E. coli K-12 PPI network figures
 
 Scripts for generating protein–protein interaction network figures for the
-E. coli K-12 pangenome perspective, using STRING v12.0 interaction data with
+E. coli K-12 pangenome, using STRING v12.0 interaction data with
 genes classified as core or accessory.
 
 ## Scripts
