@@ -6,20 +6,20 @@ import matplotlib.pyplot as plt
 # ----------------------------------------------------------------------
 # INPUT FILES  (update these paths to your local folder)
 # ----------------------------------------------------------------------
-nodes = pd.read_csv("/Users/simrangambhir/Desktop/network_perspective/version_2/nodes.tsv", sep="\t")
-edges = pd.read_csv("/Users/simrangambhir/Desktop/network_perspective/version_2/edges_typed.tsv", sep="\t")
+nodes = pd.read_csv("/path/nodes.tsv", sep="\t")
+edges = pd.read_csv("/path/edges_typed.tsv", sep="\t")
 
 CORE_C = "#d9d9d9"   # core = lighter grey
 ACC_C  = "#585858"   # accessory = darker grey
 MIX_C  = "#e8740c"   
 LINE_C = "#000000"   
 
-FS_LABEL = 15   # axis label font size (same across panels)
+FS_LABEL = 15   # axis label font size 
 FS_TICK  = 13   # tick font size
 FS_VAL   = 13   # value labels on bars
 
 # ----------------------------------------------------------------------
-# CLEAN + BUILD GRAPH
+# GRAPH
 # ----------------------------------------------------------------------
 valid = set(nodes["locus_tag"])
 edges = edges[edges["protein1"].isin(valid) & edges["protein2"].isin(valid)].copy()
@@ -48,8 +48,7 @@ has_core = np.array([any(gclass[n] == "core" for n in g.neighbors(v)) for v in a
 n_conn = int(has_core.sum()); n_iso = len(acc) - n_conn
 
 # ----------------------------------------------------------------------
-# FIGURE: 3 stacked panels, shared width -> identical box sizes,
-# aligned y-axes. constrained_layout keeps the plot boxes aligned.
+# FIGURE: 3 stacked panels
 # ----------------------------------------------------------------------
 fig, (axB, axC, axD) = plt.subplots(
     3, 1, figsize=(4.2, 11.4), constrained_layout=True)
@@ -101,5 +100,5 @@ axD.tick_params(axis='y', labelsize=FS_TICK)
 for a in (axB, axC, axD):
     a.set_box_aspect(1)
 
-plt.savefig("/Users/simrangambhir/Desktop/network_perspective/version_2/combined_BCD_v8.svg", dpi=300, bbox_inches="tight")
+plt.savefig("/path/combined_BCD_v8.svg", dpi=300, bbox_inches="tight")
 print("saved combined_BCD.png")
