@@ -9,8 +9,8 @@ from matplotlib.lines import Line2D
 # ----------------------------------------------------------------------
 # INPUT FILES
 # ----------------------------------------------------------------------
-nodes = pd.read_csv("/Users/simrangambhir/Desktop/network_perspective/version_2/nodes.tsv", sep="\t")
-edges = pd.read_csv("/Users/simrangambhir/Desktop/network_perspective/version_2/edges_typed.tsv", sep="\t")
+nodes = pd.read_csv("/path_to/nodes.tsv", sep="\t")
+edges = pd.read_csv("path_to/edges_typed.tsv", sep="\t")
 
 # Node fills 
 CORE_FILL = "#d9d9d9"   
@@ -22,9 +22,7 @@ E_CORE = "#d9d9d9"
 E_ACC  = "#585858"   # accessory = darker grey
 E_MIX  = "#e8740c"   
 
-# ----------------------------------------------------------------------
-# CLEAN: keep valid edges, drop unconnected (singleton) nodes
-# ----------------------------------------------------------------------
+
 valid = set(nodes["locus_tag"])
 edges = edges[edges["protein1"].isin(valid) & edges["protein2"].isin(valid)].copy()
 connected = set(edges["protein1"]) | set(edges["protein2"])
@@ -35,9 +33,7 @@ ids = nodes["locus_tag"].tolist()
 idx = {g_: i for i, g_ in enumerate(ids)}
 edges = edges[edges["protein1"].isin(idx) & edges["protein2"].isin(idx)].copy()
 
-# ----------------------------------------------------------------------
-# BUILD GRAPH
-# ----------------------------------------------------------------------
+
 g = ig.Graph()
 g.add_vertices(len(ids))
 g.vs["gclass"] = nodes["gene_class"].tolist()
@@ -47,7 +43,7 @@ g.es["weight"] = edges["score"].tolist()
 g.es["itype"]  = edges["interaction_type"].tolist()
 
 # ----------------------------------------------------------------------
-# LOUVAIN community detection (reproducible: seed igraph's own RNG)
+# LOUVAIN community detection 
 # ----------------------------------------------------------------------
 random.seed(42)
 ig.set_random_number_generator(random)
@@ -57,7 +53,7 @@ n_comm = len(set(membership))
 print(f"Louvain: {n_comm} communities, modularity {part.modularity:.3f}")
 
 # ----------------------------------------------------------------------
-# GROUP-AWARE LAYOUT: amplify within-community edges so each community
+# GROUP-AWARE LAYOUT:within-community edges so each community
 # contracts into its own visible hub
 # ----------------------------------------------------------------------
 base = np.array(g.es["weight"], dtype=float)
@@ -181,6 +177,6 @@ ax.legend(handles=legend, loc='upper left', frameon=False, fontsize=16)
 
 ax.axis("off")
 plt.tight_layout()
-plt.savefig("/Users/simrangambhir/Desktop/network_perspective/version_2/louvain_hubs_labelled_cc_v7.svg",
+plt.savefig("path/louvain_hubs.png",
             dpi=300, bbox_inches="tight")
-print("saved louvain_hubs_labelled_cc.png")
+
