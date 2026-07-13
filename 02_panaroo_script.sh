@@ -9,7 +9,7 @@
 # Panaroo pangenome analysis
 # Constructs pangenome from Bakta-annotated GFF files
 # Run from directory containing all .gff files
-# Requires: Panaroo >= 1.3
+# Panaroo version 1.6.0
 # ============================================================
 
 set -euo pipefail
