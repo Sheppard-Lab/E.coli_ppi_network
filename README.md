@@ -110,7 +110,9 @@ python louvain_hubs.py
 ```
 Input: `nodes.tsv`, `edges_typed.tsv`
 
-### References 
+---
+
+### References
 
 Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: Rapid and standardized annotation of bacterial genomes via alignment-free sequence identification: Find out more about Bakta, the motivation, challenges and applications, here. Microbial Genomics, 7(11). https://doi.org/10.1099/mgen.0.000685
 
