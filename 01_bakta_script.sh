@@ -8,7 +8,7 @@
 # ============================================================
 # Bakta annotation array job
 # Annotates multiple genome FASTA files in parallel
-# Requires: Bakta >= 1.9, full database downloaded
+# Bakta version 1.11.4, full database downloaded
 # Set BAKTA_DB to your local database path before running
 # ============================================================
 
@@ -49,7 +49,7 @@ prefix="${base%.*}"
 sample_out="${OUTDIR}/${prefix}"
 mkdir -p "${sample_out}"
 
-echo "[$(date)] Running Bakta on ${input}"
+
 
 bakta \
     --db "${BAKTA_DB}" \
@@ -65,4 +65,3 @@ bakta \
     --verbose \
     "${input}"
 
-echo "[$(date)] Finished ${input}"
